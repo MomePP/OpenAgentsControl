@@ -3,10 +3,10 @@ import { executeAbility } from './index.js'
 
 /**
  * Minimal ExecutionManager
- * 
+ *
  * Simplified to track SINGLE execution at a time.
  * No session management, no cleanup timers, no multi-execution.
- * 
+ *
  * This is the bare minimum to test the core concept.
  */
 export class ExecutionManager {
@@ -28,6 +28,22 @@ export class ExecutionManager {
     console.log(`[abilities] Starting execution: ${ability.name}`)
 
     this.abortController = new AbortController()
+
+    // Set activeExecution BEFORE awaiting so getActive() returns a live
+    // reference during execution (needed for chat-context injection and
+    // concurrent-execution guards).
+    this.activeExecution = {
+      id: `exec_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+      ability,
+      inputs,
+      status: 'running',
+      currentStep: null,
+      currentStepIndex: -1,
+      completedSteps: [],
+      pendingSteps: [...ability.steps],
+      startedAt: Date.now(),
+    }
+
     const execution = await executeAbility(ability, inputs, ctx, this.abortController.signal)
     this.activeExecution = execution
 
@@ -61,7 +77,6 @@ export class ExecutionManager {
     if (!this.activeExecution) return false
 
     if (this.activeExecution.status === 'running') {
-      // Signal the in-flight executeAbility loop to stop at the next iteration
       this.abortController?.abort()
       this.abortController = null
       this.activeExecution.status = 'failed'
@@ -75,14 +90,13 @@ export class ExecutionManager {
   }
 
   cancelActive(): boolean {
-    // Signal the in-flight executeAbility loop to stop at the next iteration
-    this.abortController?.abort()
-    this.abortController = null
     return this.cancel()
   }
 
   onSessionDeleted(sessionId: string): void {
     if (this.activeExecution && this.activeExecution.status === 'running') {
+      this.abortController?.abort()
+      this.abortController = null
       this.activeExecution.status = 'failed'
       this.activeExecution.error = `Session ${sessionId} deleted`
       this.activeExecution.completedAt = Date.now()
@@ -91,6 +105,8 @@ export class ExecutionManager {
   }
 
   cleanup(): void {
+    this.abortController?.abort()
+    this.abortController = null
     this.activeExecution = null
   }
 }

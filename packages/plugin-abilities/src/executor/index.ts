@@ -493,6 +493,24 @@ export async function executeAbility(
 
   // Build execution order based on dependencies
   const orderedSteps = buildExecutionOrder(ability.steps)
+
+  // Check for cancellation before starting execution
+  if (signal?.aborted) {
+    return {
+      id: generateExecutionId(),
+      ability,
+      inputs: resolvedInputs,
+      status: 'failed',
+      currentStep: null,
+      currentStepIndex: -1,
+      completedSteps: [],
+      pendingSteps: orderedSteps,
+      startedAt: Date.now(),
+      completedAt: Date.now(),
+      error: 'Cancelled',
+    }
+  }
+
   const stepOutputs = new Map<string, string>()
 
   const execution: AbilityExecution = {

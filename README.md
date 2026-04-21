@@ -1,3 +1,25 @@
+> **📌 Fork Notice**
+>
+> This is a personal fork of [`darrenhinde/OpenAgentsControl`](https://github.com/darrenhinde/OpenAgentsControl) maintained for **Claude Code plugin** use.
+>
+> **Why this fork exists:** upstream PR [#296](https://github.com/darrenhinde/OpenAgentsControl/pull/296) registers the plugin's 12 skills and 6 commands in `plugin.json` so Claude Code can actually discover them. Until that PR is merged upstream, this fork carries it pre-merged so the Claude Code marketplace install works out of the box.
+>
+> **Install via Claude Code:**
+> ```
+> /plugin marketplace add MomePP/OpenAgentsControl
+> /plugin install oac
+> ```
+>
+> **What's merged vs. upstream `main`:**
+> - ✅ PR [#296](https://github.com/darrenhinde/OpenAgentsControl/pull/296) — `plugin.json` skills/commands registration + `plugin-abilities` hardening
+> - ❌ PR [#297](https://github.com/darrenhinde/OpenAgentsControl/pull/297) — `install.sh` fixes (not needed for marketplace install)
+> - ❌ PR [#298](https://github.com/darrenhinde/OpenAgentsControl/pull/298) — OAC CLI npm package (still WIP upstream)
+> - ❌ PR [#295](https://github.com/darrenhinde/OpenAgentsControl/pull/295) — OpenCode worktree skill (not applicable to Claude Code)
+>
+> Everything below is upstream documentation — refer to the original repo for the authoritative source.
+
+---
+
 <div align="center">
 
 ![OpenAgents Control Hero](docs/images/hero-image.png)
@@ -169,8 +191,9 @@ opencode --agent OpenAgent
 
 1. Register the marketplace:
 ```bash
-/plugin marketplace add darrenhinde/OpenAgentsControl
+/plugin marketplace add MomePP/OpenAgentsControl
 ```
+<sub>Using this fork until upstream merges [PR #296](https://github.com/darrenhinde/OpenAgentsControl/pull/296). Upstream `darrenhinde/OpenAgentsControl` currently does not register skills/commands in `plugin.json`, so Claude Code cannot discover them.</sub>
 
 2. Install the plugin:
 ```bash
@@ -179,19 +202,40 @@ opencode --agent OpenAgent
 
 3. Download context files:
 ```bash
-/oac:setup --core
+/install-context
+```
+<sub>Use `/install-context --profile=extended` or `--profile=all` for larger profiles, `--force` to reinstall, `--dry-run` to preview.</sub>
+
+4. Verify installation:
+```bash
+/oac:status
 ```
 
-4. Start building:
+5. Start building:
 ```
 Add a login endpoint
+```
+
+**Available commands** (as registered in `plugin.json`):
+- `/install-context` — download context files from the OAC registry
+- `/oac:help` — show OAC usage guide
+- `/oac:status` — show plugin status and installed context
+- `/oac:cleanup` — clean up old temporary files
+- `/brainstorm` — brainstorm ideas and approaches
+- `/debug` — debug an issue systematically
+
+**Uninstall:**
+```bash
+/plugin uninstall oac
+/plugin marketplace remove MomePP/OpenAgentsControl
+# Then remove any downloaded context under .oac/ or .claude/context/ if you no longer need it.
 ```
 
 **Features:**
 - ✅ 6-stage workflow with approval gates
 - ✅ Context-aware code generation
-- ✅ 7 specialized subagents (task-manager, context-scout, context-manager, coder-agent, test-engineer, code-reviewer, external-scout)
-- ✅ 9 workflow skills + 6 user commands
+- ✅ 6 specialized subagents (task-manager, context-scout, external-research, coder-agent, test-engineer, code-reviewer)
+- ✅ 12 workflow skills + 6 user commands
 - ✅ Flexible context discovery (.oac config, .claude/context, context, .opencode/context)
 - ✅ Add context from GitHub, worktrees, local files, or URLs
 - ✅ Easy feature planning with `/oac:plan`

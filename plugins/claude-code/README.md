@@ -29,7 +29,8 @@ Install directly from the Claude Code marketplace:
 
 ```bash
 # Add the OpenAgents Control marketplace repository
-/plugin marketplace add https://github.com/darrenhinde/OpenAgentsControl
+# (MomePP fork pre-merges PR #296 so Claude Code can discover skills/commands)
+/plugin marketplace add https://github.com/MomePP/OpenAgentsControl
 
 # Install the OAC plugin
 /plugin install oac
@@ -41,6 +42,14 @@ Install directly from the Claude Code marketplace:
 > **First time?** Run `/install-context` to download context files, then `/oac:status` to verify.
 
 **That's it!** The plugin is now installed and ready to use.
+
+**Uninstall:**
+
+```bash
+/plugin uninstall oac
+/plugin marketplace remove MomePP/OpenAgentsControl
+# Remove downloaded context dirs (.oac/, .claude/context/) if no longer needed.
+```
 
 ### Option 2: Local Development
 

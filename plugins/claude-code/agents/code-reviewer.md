@@ -17,7 +17,7 @@ description: |
   </example>
 tools: Read, Glob, Grep
 disallowedTools: Write, Edit, Bash, Task
-model: sonnet
+model: opus
 ---
 
 # CodeReviewer

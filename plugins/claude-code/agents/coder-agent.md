@@ -16,7 +16,7 @@ description: |
   <commentary>A concrete implementation task with a specific file — coder-agent executes it.</commentary>
   </example>
 tools: Read, Write, Edit, Glob, Grep
-model: sonnet
+model: opus
 ---
 
 # CoderAgent

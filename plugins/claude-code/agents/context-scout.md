@@ -17,7 +17,7 @@ description: |
   </example>
 tools: Read, Glob, Grep
 disallowedTools: Write, Edit, Bash, Task
-model: haiku
+model: sonnet
 ---
 
 # ContextScout

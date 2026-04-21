@@ -1,6 +1,6 @@
 ---
 name: using-oac
-description: "Use when starting any conversation — establishes how to find and use OAC skills, requiring Skill tool invocation BEFORE ANY response including clarifying questions, this is your secret weapon to best perform your tasks"
+description: "Use when the user asks to build, implement, create, refactor, debug, review, or test a feature that spans multiple files or components. Establishes how to discover and use OAC skills for multi-stage work. Do NOT invoke for questions, explanations, one-line edits, or simple read-only tasks — Claude Code can handle those directly."
 ---
 
 <EXTREMELY-IMPORTANT>

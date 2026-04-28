@@ -40,12 +40,11 @@
 **Model Agnostic:** Claude • GPT • Gemini • MiniMax • Local models
 
 
-[![GitHub stars](https://img.shields.io/github/stars/darrenhinde/OpenAgentsControl?style=flat-square&logo=github&labelColor=black&color=ffcb47)](https://github.com/darrenhinde/OpenAgentsControl/stargazers)
-[![X Follow](https://img.shields.io/twitter/follow/DarrenBuildsAI?style=flat-square&logo=x&labelColor=black&color=1DA1F2)](https://x.com/DarrenBuildsAI)
+[![GitHub stars](https://img.shields.io/github/stars/MomePP/OpenAgentsControl?style=flat-square&logo=github&labelColor=black&color=ffcb47)](https://github.com/MomePP/OpenAgentsControl/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-3fb950?style=flat-square&labelColor=black)](https://opensource.org/licenses/MIT)
-[![Last Commit](https://img.shields.io/github/last-commit/darrenhinde/OpenAgentsControl?style=flat-square&labelColor=black&color=8957e5)](https://github.com/darrenhinde/OpenAgentsControl/commits/main)
+[![Last Commit](https://img.shields.io/github/last-commit/MomePP/OpenAgentsControl?style=flat-square&labelColor=black&color=8957e5)](https://github.com/MomePP/OpenAgentsControl/commits/main)
 
-[🚀 Quick Start](#-quick-start) • [💻 Show Me Code](#-example-workflow) • [🗺️ Roadmap](https://github.com/darrenhinde/OpenAgentsControl/projects) • [💬 Community](https://nextsystems.ai)
+[🚀 Quick Start](#-quick-start) • [💻 Show Me Code](#-example-workflow) • [🗺️ Roadmap](./ROADMAP.md)
 
 </div>
 
@@ -131,7 +130,6 @@ Use any AI model (Claude, GPT, Gemini, local). No vendor lock-in.
 - **Aider:** Simple file edits, no team coordination
 - **Oh My OpenCode:** Need autonomous execution with parallel agents (speed over control)
 
-> **Full comparison:** [Read detailed analysis →](https://github.com/darrenhinde/OpenAgentsControl/discussions/116)
 
 ---
 
@@ -774,7 +772,7 @@ A: OAC has editable agents (not baked-in), approval gates (not auto-execute), co
 A: OAC has team patterns, context system, approval workflow, and smart pattern discovery. Aider is file-based only.
 
 **Q: How does this compare to Oh My OpenCode?**  
-A: Both are built on OpenCode. OAC focuses on **control & repeatability** (approval gates, pattern control, team standards). Oh My OpenCode focuses on **autonomy & speed** (parallel agents, auto-execution). [Read detailed comparison →](https://github.com/darrenhinde/OpenAgentsControl/discussions/116)
+A: Both are built on OpenCode. OAC focuses on **control & repeatability** (approval gates, pattern control, team standards). Oh My OpenCode focuses on **autonomy & speed** (parallel agents, auto-execution).
 
 **Q: When should I NOT use OAC?**  
 A: If you want fully autonomous execution without approval gates, or if you don't have established coding patterns yet.
@@ -798,11 +796,13 @@ A: Local (`.opencode/` in your project) is recommended — patterns are committe
 
 ### 🚀 See What's Coming Next
 
-Check out our [**Project Board**](https://github.com/darrenhinde/OpenAgentsControl/projects) to see:
-- 🔨 **In Progress** - Features being built right now
-- 📋 **Planned** - What's coming soon
-- 💡 **Ideas** - Future enhancements under consideration
-- ✅ **Recently Shipped** - Latest improvements
+See [**ROADMAP.md**](./ROADMAP.md) for:
+- 🔨 **In Progress** — features being built right now
+- 📋 **Planned** — what's coming soon
+- 💡 **Ideas** — future enhancements under consideration
+- ✅ **Recently Shipped** — latest improvements
+
+Upstream roadmap lives at [`darrenhinde/OpenAgentsControl`](https://github.com/darrenhinde/OpenAgentsControl); this fork tracks Claude Code plugin work specifically.
 
 ### 🎯 Current Focus Areas
 
@@ -816,9 +816,9 @@ Check out our [**Project Board**](https://github.com/darrenhinde/OpenAgentsContr
 ### 💬 Have Ideas?
 
 We'd love to hear from you! 
-- 💡 [**Submit Feature Requests**](https://github.com/darrenhinde/OpenAgentsControl/issues/new?labels=enhancement)
-- 🐛 [**Report Bugs**](https://github.com/darrenhinde/OpenAgentsControl/issues/new?labels=bug)
-- 💬 [**Join Discussions**](https://github.com/darrenhinde/OpenAgentsControl/discussions)
+- 💡 [**Submit Feature Requests**](https://github.com/MomePP/OpenAgentsControl/issues/new?labels=enhancement)
+- 🐛 [**Report Bugs**](https://github.com/MomePP/OpenAgentsControl/issues/new?labels=bug)
+- 🌳 [**Upstream issues / discussions**](https://github.com/darrenhinde/OpenAgentsControl) — for issues that affect the upstream project, not just this fork
 
 **Star the repo** ⭐ to stay updated with new releases!
 
@@ -846,9 +846,7 @@ See: [Contributing Guide](docs/contributing/CONTRIBUTING.md) • [Code of Conduc
 [![YouTube](https://img.shields.io/badge/YouTube-Darren_Builds_AI-red?style=for-the-badge&logo=youtube&logoColor=white)](https://youtube.com/@DarrenBuildsAI)
 [![Community](https://img.shields.io/badge/Community-NextSystems.ai-blue?style=for-the-badge&logo=discourse&logoColor=white)](https://nextsystems.ai)
 [![X/Twitter](https://img.shields.io/badge/Follow-@DarrenBuildsAI-1DA1F2?style=for-the-badge&logo=x&logoColor=white)](https://x.com/DarrenBuildsAI)
-[![Buy Me A Coffee](https://img.shields.io/badge/Support-Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/darrenhinde)
-
-**📺 Tutorials & Demos** • **💬 Join Waitlist** • **🐦 Latest Updates** • **☕ Support Development**
+**📺 Tutorials & Demos** • **💬 Join Waitlist** • **🐦 Latest Updates**
 
 *Your support helps keep this project free and open-source!*
 

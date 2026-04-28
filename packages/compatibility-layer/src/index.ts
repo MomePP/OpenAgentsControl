@@ -157,6 +157,7 @@ export { BaseAdapter } from "./adapters/BaseAdapter.js";
 export { CursorAdapter } from "./adapters/CursorAdapter.js";
 export { ClaudeAdapter } from "./adapters/ClaudeAdapter.js";
 export { WindsurfAdapter } from "./adapters/WindsurfAdapter.js";
+export { OpenCodeAdapter } from "./adapters/OpenCodeAdapter.js";
 
 // ============================================================================
 // MAPPERS - Feature Translation (Phase 3)

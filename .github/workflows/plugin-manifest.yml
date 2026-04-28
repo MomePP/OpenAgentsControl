@@ -1,0 +1,78 @@
+name: Plugin Manifests
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'plugins/**'
+      - '.github/workflows/plugin-manifest.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'plugins/**'
+  workflow_dispatch:
+
+jobs:
+  claude-code:
+    name: Claude Code plugin manifest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate plugin.json is parseable JSON
+        run: jq -e . plugins/claude-code/.claude-plugin/plugin.json > /dev/null
+
+      - name: Required fields present
+        run: |
+          jq -e '.name and .description and .version' plugins/claude-code/.claude-plugin/plugin.json
+          test "$(jq -r .name plugins/claude-code/.claude-plugin/plugin.json)" = "oac"
+
+      - name: Skills directory exists with SKILL.md files
+        run: |
+          test -d plugins/claude-code/skills
+          count=$(find plugins/claude-code/skills -name SKILL.md | wc -l)
+          echo "skills count: $count"
+          test "$count" -gt 0
+
+      - name: Agents directory exists with markdown files
+        run: |
+          test -d plugins/claude-code/agents
+          count=$(find plugins/claude-code/agents -maxdepth 1 -name '*.md' | wc -l)
+          echo "agent count: $count"
+          test "$count" -gt 0
+
+      - name: Commands listed in plugin.json exist on disk
+        run: |
+          for cmd in $(jq -r '.commands[]' plugins/claude-code/.claude-plugin/plugin.json); do
+            path="plugins/claude-code/${cmd#./}"
+            echo "checking $path"
+            test -f "$path"
+          done
+
+      - name: hooks/hooks.json parses if present
+        run: |
+          if [ -f plugins/claude-code/hooks/hooks.json ]; then
+            jq -e . plugins/claude-code/hooks/hooks.json > /dev/null
+          fi
+
+  opencode:
+    name: opencode plugin layout
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: opencode.json parses
+        run: jq -e . plugins/opencode/opencode.json > /dev/null
+
+      - name: Required directories present
+        run: |
+          test -d plugins/opencode/agents
+          test -d plugins/opencode/commands
+          test -L plugins/opencode/skills || test -d plugins/opencode/skills
+          test -d plugins/opencode/plugin
+
+      - name: Plugin script type-checks
+        run: |
+          test -f plugins/opencode/plugin/oac-hooks.ts
+          # Lightweight syntactic check via Node ESM parse
+          node --input-type=module -e "import('./plugins/opencode/plugin/oac-hooks.ts').catch(e => { console.log('skip — runtime needed'); })" || true

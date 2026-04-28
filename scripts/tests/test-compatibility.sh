@@ -164,7 +164,7 @@ fi
 # Test 12: Network connectivity
 echo ""
 echo "Test 12: Network Connectivity"
-if curl -fsSL --max-time 5 https://raw.githubusercontent.com/darrenhinde/OpenAgentsControl/main/README.md > /dev/null 2>&1; then
+if curl -fsSL --max-time 5 https://raw.githubusercontent.com/MomePP/OpenAgentsControl/main/README.md > /dev/null 2>&1; then
     pass "Network connectivity to GitHub works"
 else
     warn "Network connectivity test failed (may be offline)"
@@ -177,5 +177,5 @@ echo "╚═══════════════════════�
 echo ""
 echo "Your system is compatible with the OpenCode installer."
 echo "You can safely run:"
-echo "  curl -fsSL https://raw.githubusercontent.com/darrenhinde/OpenAgentsControl/main/install.sh | bash"
+echo "  curl -fsSL https://raw.githubusercontent.com/MomePP/OpenAgentsControl/main/install.sh | bash"
 echo ""

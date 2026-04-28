@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
   "schema_version": "2.0.0",
-  "repository": "https://github.com/darrenhinde/OpenAgentsControl",
+  "repository": "https://github.com/MomePP/OpenAgentsControl",
   "categories": {
     "essential": "Minimal components for basic functionality",
     "standard": "Standard components for typical use",

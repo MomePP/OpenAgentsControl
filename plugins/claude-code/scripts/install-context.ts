@@ -15,7 +15,7 @@ import { fetchRegistry, filterContextByProfile, filterContextByIds, getUniquePat
 import { sparseClone, copyFiles, cleanup, checkGitAvailable } from './utils/git-sparse'
 
 // Configuration
-const GITHUB_REPO = 'darrenhinde/OpenAgentsControl'
+const GITHUB_REPO = 'MomePP/OpenAgentsControl'
 const GITHUB_BRANCH = 'main'
 const CONTEXT_SOURCE_PATH = '.opencode/context'
 const PLUGIN_ROOT = process.env.CLAUDE_PLUGIN_ROOT || process.cwd()

@@ -1,6 +1,16 @@
 # Cross-Platform Compatibility Summary
 
-## ✅ Fully Tested & Supported
+## ✅ Host CLIs
+
+| Host CLI | Plugin Path | Install Method | Status |
+|----------|-------------|----------------|--------|
+| **Claude Code** | `plugins/claude-code/` | `/plugin marketplace add MomePP/OpenAgentsControl` then `/plugin install oac` | ✅ Supported |
+| **opencode** | `plugins/opencode/` | `curl ... install.sh \| bash` (or copy `plugins/opencode/*` into `.opencode/`) | 🟡 Beta — see `plugins/opencode/README.md` |
+
+The shell `install.sh` targets opencode. For Claude Code use the plugin
+marketplace path — no shell installer needed.
+
+## ✅ Operating Systems (for `install.sh` / opencode)
 
 | Platform | Bash Version | Status | Installation Method |
 |----------|--------------|--------|---------------------|
@@ -14,24 +24,24 @@
 
 ### macOS / Linux
 ```bash
-curl -fsSL https://raw.githubusercontent.com/darrenhinde/OpenAgentsControl/main/install.sh | bash -s essential
+curl -fsSL https://raw.githubusercontent.com/MomePP/OpenAgentsControl/main/install.sh | bash -s essential
 ```
 
 ### Windows (Git Bash)
 ```bash
-curl -fsSL https://raw.githubusercontent.com/darrenhinde/OpenAgentsControl/main/install.sh | bash -s essential
+curl -fsSL https://raw.githubusercontent.com/MomePP/OpenAgentsControl/main/install.sh | bash -s essential
 ```
 
 ### Windows (PowerShell)
 ```powershell
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/darrenhinde/OpenAgentsControl/main/install.sh" -OutFile "install.sh"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/MomePP/OpenAgentsControl/main/install.sh" -OutFile "install.sh"
 & "C:\Program Files\Git\bin\bash.exe" install.sh essential
 ```
 
 ## Test Your System
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/darrenhinde/OpenAgentsControl/main/scripts/tests/test-compatibility.sh | bash
+curl -fsSL https://raw.githubusercontent.com/MomePP/OpenAgentsControl/main/scripts/tests/test-compatibility.sh | bash
 ```
 
 ## Key Compatibility Features
@@ -61,4 +71,4 @@ See [Platform Compatibility Guide](docs/getting-started/platform-compatibility.m
 
 1. Run compatibility test: `bash scripts/tests/test-compatibility.sh`
 2. Check bash version: `bash --version`
-3. Report issues: [GitHub Issues](https://github.com/darrenhinde/OpenAgentsControl/issues)
+3. Report issues: [GitHub Issues](https://github.com/MomePP/OpenAgentsControl/issues)

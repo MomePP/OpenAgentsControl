@@ -35,7 +35,7 @@
   ],
   "author": {
     "name": "Darren Hinde",
-    "url": "https://github.com/darrenhinde/OpenAgentsControl"
+    "url": "https://github.com/MomePP/OpenAgentsControl"
   },
   "contributors": [
     {
@@ -47,7 +47,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/darrenhinde/OpenAgentsControl.git",
+    "url": "https://github.com/MomePP/OpenAgentsControl.git",
     "directory": "packages/compatibility-layer"
   },
   "engines": {

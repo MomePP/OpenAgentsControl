@@ -4,6 +4,11 @@
 # OpenAgents Control Installer
 # Interactive installer for OpenCode agents, commands, tools, and plugins
 #
+# Scope: this installer targets the **opencode** CLI (.opencode/ layout).
+# Claude Code users: install via the plugin marketplace instead —
+#   /plugin marketplace add MomePP/OpenAgentsControl
+#   /plugin install oac
+#
 # Compatible with:
 # - macOS (bash 3.2+)
 # - Linux (bash 3.2+)
@@ -11,6 +16,35 @@
 #############################################################################
 
 set -e
+
+# Host gate: redirect Claude Code users to marketplace install.
+# Triggered by `--host claude-code`, $OAC_HOST=claude-code, or first arg "claude-code".
+for arg in "$@"; do
+    case "$arg" in
+        --host=claude-code|--host=claude|claude-code|claude)
+            cat <<'EOF'
+This installer targets the opencode CLI.
+For Claude Code, install via the plugin marketplace instead:
+
+  /plugin marketplace add MomePP/OpenAgentsControl
+  /plugin install oac
+
+Or run inside Claude Code directly. No shell installer needed.
+EOF
+            exit 0
+            ;;
+    esac
+done
+if [ "${OAC_HOST:-}" = "claude-code" ] || [ "${OAC_HOST:-}" = "claude" ]; then
+    cat <<'EOF'
+This installer targets the opencode CLI.
+For Claude Code, install via the plugin marketplace instead:
+
+  /plugin marketplace add MomePP/OpenAgentsControl
+  /plugin install oac
+EOF
+    exit 0
+fi
 
 # Detect platform
 PLATFORM="$(uname -s)"
@@ -44,9 +78,9 @@ else
 fi
 
 # Configuration
-REPO_URL="https://github.com/darrenhinde/OpenAgentsControl"
+REPO_URL="https://github.com/MomePP/OpenAgentsControl"
 BRANCH="${OPENCODE_BRANCH:-main}"  # Allow override via environment variable
-RAW_URL="https://raw.githubusercontent.com/darrenhinde/OpenAgentsControl/${BRANCH}"
+RAW_URL="https://raw.githubusercontent.com/MomePP/OpenAgentsControl/${BRANCH}"
 
 # Registry URL - supports local fallback for development
 # Priority: 1) REGISTRY_URL env var, 2) Local registry.json, 3) Remote GitHub
@@ -494,7 +528,7 @@ check_interactive_mode() {
         echo "For interactive mode, download the script first:"
         echo ""
         echo -e "${CYAN}# Download the script${NC}"
-        echo "curl -fsSL https://raw.githubusercontent.com/darrenhinde/OpenAgentsControl/main/install.sh -o install.sh"
+        echo "curl -fsSL https://raw.githubusercontent.com/MomePP/OpenAgentsControl/main/install.sh -o install.sh"
         echo ""
         echo -e "${CYAN}# Run interactively${NC}"
         echo "bash install.sh"
@@ -502,7 +536,7 @@ check_interactive_mode() {
         echo "Or use a profile directly:"
         echo ""
         echo -e "${CYAN}# Quick install with profile${NC}"
-        echo "curl -fsSL https://raw.githubusercontent.com/darrenhinde/OpenAgentsControl/main/install.sh | bash -s essential"
+        echo "curl -fsSL https://raw.githubusercontent.com/MomePP/OpenAgentsControl/main/install.sh | bash -s essential"
         echo ""
         echo "Available profiles: essential, developer, business, full, advanced"
         echo ""
@@ -1433,7 +1467,7 @@ main() {
                 echo "  $0 developer"
                 echo ""
                 echo -e "  ${CYAN}# Install from URL (non-interactive)${NC}"
-                echo "  curl -fsSL https://raw.githubusercontent.com/darrenhinde/OpenAgentsControl/main/install.sh | bash -s developer"
+                echo "  curl -fsSL https://raw.githubusercontent.com/MomePP/OpenAgentsControl/main/install.sh | bash -s developer"
                 echo ""
                 echo -e "${BOLD}Platform Support:${NC}"
                 echo "  ✓ Linux (bash 3.2+)"

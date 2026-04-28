@@ -82,7 +82,7 @@ claude --version
 ### One-Line Install (Recommended)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/darrenhinde/OpenAgentsControl/main/integrations/claude-code/bootstrap-install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/MomePP/OpenAgentsControl/main/integrations/claude-code/bootstrap-install.sh | bash
 ```
 
 **Prereqs**: `git`, `bash`

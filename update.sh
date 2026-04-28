@@ -49,7 +49,7 @@ else
 fi
 
 BRANCH="${OPENCODE_BRANCH:-main}"
-REPO_URL="https://raw.githubusercontent.com/darrenhinde/OpenAgentsControl/${BRANCH}"
+REPO_URL="https://raw.githubusercontent.com/MomePP/OpenAgentsControl/${BRANCH}"
 
 # CLI argument for custom install dir (overrides env var)
 CUSTOM_INSTALL_DIR=""

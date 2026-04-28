@@ -2,6 +2,10 @@
 name: context-manager
 description: Manages context files, discovers context roots, validates structure, and organizes project context
 tools: Read, Write, Glob, Grep, Bash
+permission:
+  edit: allow
+  bash: allow
+  webfetch: deny
 model: sonnet
 ---
 

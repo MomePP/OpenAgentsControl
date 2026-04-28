@@ -2,6 +2,10 @@
 name: test-engineer
 description: Test authoring and TDD specialist - writes comprehensive tests following project testing standards
 tools: Read, Write, Edit, Bash
+permission:
+  edit: allow
+  bash: allow
+  webfetch: deny
 model: sonnet
 ---
 

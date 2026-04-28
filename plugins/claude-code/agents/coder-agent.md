@@ -16,6 +16,10 @@ description: |
   <commentary>A concrete implementation task with a specific file — coder-agent executes it.</commentary>
   </example>
 tools: Read, Write, Edit, Glob, Grep
+permission:
+  edit: allow
+  bash: deny
+  webfetch: deny
 model: opus
 ---
 

@@ -2,6 +2,10 @@
 name: task-manager
 description: Break down complex features into atomic, verifiable subtasks with dependency tracking and JSON-based progress management
 tools: Read, Write, Glob, Grep
+permission:
+  edit: allow
+  bash: deny
+  webfetch: deny
 model: sonnet
 ---
 

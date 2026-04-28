@@ -20,10 +20,10 @@ truth — no copy drift.
 
 ## Known conversion gaps from Claude Code → opencode
 
-- Agent frontmatter still uses Claude Code's `tools:` field. opencode prefers
-  a `permission:` object (`edit`, `bash`, `read`, `task` → `allow|ask|deny`).
-  Unknown fields are ignored, so this is non-fatal — but tighten permissions
-  manually if you care.
+- Agent frontmatter carries both Claude Code's `tools:` / `disallowedTools:`
+  fields and an opencode `permission:` block. Each host reads its own; the
+  other ignores the unknown fields. If you adjust permissions, update both
+  so the agents stay in sync across hosts.
 - Commands embed `${CLAUDE_PLUGIN_ROOT}` paths. opencode does not export that
   variable; the `oac-hooks.ts` plugin sets it for child processes when it
   spawns the session-start script, but inline command bodies that read the

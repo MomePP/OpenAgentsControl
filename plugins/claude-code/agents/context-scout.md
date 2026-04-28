@@ -17,6 +17,10 @@ description: |
   </example>
 tools: Read, Glob, Grep
 disallowedTools: Write, Edit, Bash, Task
+permission:
+  edit: deny
+  bash: deny
+  webfetch: deny
 model: haiku
 ---
 

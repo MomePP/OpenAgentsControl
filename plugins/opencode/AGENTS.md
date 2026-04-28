@@ -7,9 +7,12 @@ exposed through opencode's primitive layout (`agents/`, `commands/`,
 
 ## How OAC works here
 
+`skills/`, `agents/`, and `commands/` are all symlinks into
+`plugins/claude-code/` so the Claude Code plugin is the single source of
+truth — no copy drift.
+
 - **Skills** (`skills/<name>/SKILL.md`) — invokable contracts. Same SKILL.md
-  spec as Claude Code; symlinked from the Claude Code plugin so they stay in
-  sync.
+  spec as Claude Code.
 - **Agents** (`agents/<name>.md`) — subagents the model can dispatch.
 - **Commands** (`commands/<name>.md`) — slash commands.
 - **Plugin** (`plugin/oac-hooks.ts`) — JS hook script. Runs the OAC

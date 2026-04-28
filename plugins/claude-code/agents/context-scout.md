@@ -219,6 +219,59 @@ Return results in this structured format:
 5. Merge and rank by priority
 6. Return: unified list with clear domain labels
 
+### Pattern 5: No Context Found (Empty State)
+
+**Trigger**: Step 0 protocol returns `source: none` — none of `.oac.json`,
+`.claude/context/navigation.md`, `context/navigation.md`,
+`.opencode/context/navigation.md`, `~/.claude/context/navigation.md`, nor
+`{PLUGIN_ROOT}/context/navigation.md` exist.
+
+**Do NOT** then run a generic glob like `Glob: .opencode/**/*` and report
+"no `.opencode` directory" — that misleads the user into thinking the
+project needs an `.opencode/` directory specifically. The protocol already
+covered every valid location.
+
+**Do NOT** silently proceed with the user's downstream task (review, plan,
+etc.) without context. Surface the empty-state message first and let the
+main agent decide how to proceed.
+
+**Required response** (mirror protocol Step 4):
+
+```markdown
+# No Context Found
+
+Searched all standard locations and found no project context:
+- `.oac.json` — not present
+- `.claude/context/navigation.md` — not found
+- `context/navigation.md` — not found
+- `.opencode/context/navigation.md` — not found
+- `~/.claude/context/navigation.md` — not found (no global install)
+
+Pick one to proceed:
+
+**Option 1 — Download standard context (recommended):**
+Run `/install-context` to fetch coding standards, security patterns,
+workflows, and more.
+
+**Option 2 — Point to existing docs:**
+Create `.oac.json` at the project root:
+\`\`\`json
+{
+  "version": "1",
+  "context": { "root": "path/to/your/docs" }
+}
+\`\`\`
+
+**Option 3 — Proceed without context:**
+Standards won't be applied; code quality may be inconsistent.
+
+---
+
+**Monorepo note:** opencode and Claude Code look for context at the
+directory you launch from. If each package needs its own context, run
+`/install-context` from each package root or set a per-package `.oac.json`.
+```
+
 ---
 
 ## What NOT to Do
@@ -230,6 +283,8 @@ Return results in this structured format:
 - ❌ Don't use Write, Edit, Bash, or Task tools — read-only only
 - ❌ Don't try to call other subagents — you work independently
 - ❌ Don't load the files yourself — return paths for the main agent to load
+- ❌ Don't run a generic `Glob: .opencode/**/*` (or any blanket glob) when the protocol returns `source: none`. The discovery protocol is the only valid discovery mechanism — fall through to the no-context message.
+- ❌ Don't continue with the user's downstream task when no context was found — return the empty-state message and let the main agent ask how to proceed.
 
 ---
 

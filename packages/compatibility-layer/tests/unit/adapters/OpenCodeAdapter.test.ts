@@ -285,4 +285,93 @@ System prompt body.`;
       expect(adapter.validateConversion(agent).join(" ")).toMatch(/maxSteps/);
     });
   });
+
+  // ============================================================================
+  // ROUND-TRIP
+  // ============================================================================
+
+  describe("round-trip (fromOAC → toOAC)", () => {
+    it("preserves subagent frontmatter through a full round trip", async () => {
+      const original: OpenAgent = {
+        frontmatter: {
+          name: "code-reviewer",
+          description: "reviews code",
+          mode: "subagent",
+          model: "opus",
+          temperature: 0.2,
+          permission: { edit: "deny", bash: "deny", webfetch: "deny" },
+          skills: ["code-review", "verification-before-completion"],
+        } as AgentFrontmatter,
+        metadata: { name: "code-reviewer" },
+        systemPrompt: "Review code carefully.",
+        contexts: [],
+      };
+
+      const converted = await adapter.fromOAC(original);
+      const agentMd = converted.configs.find((c) => c.fileName.endsWith(".md"))!;
+      const reparsed = await adapter.toOAC(agentMd.content);
+
+      expect(reparsed.frontmatter.name).toBe(original.frontmatter.name);
+      expect(reparsed.frontmatter.description).toBe(original.frontmatter.description);
+      expect(reparsed.frontmatter.mode).toBe(original.frontmatter.mode);
+      expect(reparsed.frontmatter.model).toBe(original.frontmatter.model);
+      expect(reparsed.frontmatter.temperature).toBe(original.frontmatter.temperature);
+      expect(reparsed.frontmatter.permission).toEqual(original.frontmatter.permission);
+      expect(reparsed.frontmatter.skills).toEqual(original.frontmatter.skills);
+      expect(reparsed.systemPrompt).toBe(original.systemPrompt);
+    });
+
+    it("preserves primary agent identity through a round trip (mode + name)", async () => {
+      const original: OpenAgent = {
+        frontmatter: {
+          name: "main",
+          description: "primary loop",
+          mode: "primary",
+          model: "sonnet",
+          tools: { read: true, write: true, edit: true, bash: false },
+        } as AgentFrontmatter,
+        metadata: { name: "main" },
+        systemPrompt: "Primary loop body.",
+        contexts: [],
+      };
+
+      const converted = await adapter.fromOAC(original);
+      const agentMd = converted.configs.find((c) =>
+        c.fileName === ".opencode/agents/main.md"
+      )!;
+      const reparsed = await adapter.toOAC(agentMd.content);
+
+      expect(reparsed.frontmatter.name).toBe("main");
+      expect(reparsed.frontmatter.mode).toBe("primary");
+      expect(reparsed.frontmatter.model).toBe("sonnet");
+      // tools→permission fallback materialised as a permission block in the MD,
+      // and toOAC parses it back as permission (not tools) — assert that lift.
+      expect(reparsed.frontmatter.permission).toBeDefined();
+      expect(reparsed.frontmatter.permission!.edit).toBe("allow");
+      expect(reparsed.frontmatter.permission!.bash).toBe("deny");
+      expect(reparsed.systemPrompt).toBe("Primary loop body.");
+    });
+
+    it("does not introduce extra fields on round trip", async () => {
+      const original: OpenAgent = {
+        frontmatter: {
+          name: "minimal",
+          description: "no extras",
+          mode: "subagent",
+        } as AgentFrontmatter,
+        metadata: { name: "minimal" },
+        systemPrompt: "Body.",
+        contexts: [],
+      };
+
+      const converted = await adapter.fromOAC(original);
+      const agentMd = converted.configs.find((c) => c.fileName.endsWith(".md"))!;
+      const reparsed = await adapter.toOAC(agentMd.content);
+
+      // Optional fields should remain undefined (not coerced to empty objects/arrays).
+      expect(reparsed.frontmatter.temperature).toBeUndefined();
+      expect(reparsed.frontmatter.permission).toBeUndefined();
+      expect(reparsed.frontmatter.skills).toBeUndefined();
+    });
+  });
 });

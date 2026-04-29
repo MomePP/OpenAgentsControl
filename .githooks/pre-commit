@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+#
+# Repo-tracked pre-commit hook.
+#
+# Activate once per clone:
+#   git config core.hooksPath .githooks
+#
+# Skip with: git commit --no-verify
+#
+
+set -e
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+
+# Only run version-sync when either manifest file is staged.
+if git diff --cached --name-only | grep -qE '(^plugins/claude-code/\.claude-plugin/plugin\.json$|^\.claude-plugin/marketplace\.json$)'; then
+    bash "$REPO_ROOT/scripts/check-version-sync.sh"
+fi

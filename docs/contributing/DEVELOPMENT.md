@@ -37,7 +37,15 @@ cd OpenAgentsControl
 cd evals/framework
 npm install
 cd ../..
+
+# Activate repo-tracked git hooks (one-time, per clone)
+git config core.hooksPath .githooks
 ```
+
+The `.githooks/pre-commit` hook runs `scripts/check-version-sync.sh`
+whenever `plugin.json` or `marketplace.json` is staged, and blocks
+commits where the plugin version drifts between the two manifests.
+Skip with `git commit --no-verify` if you have a reason.
 
 ### Verify Setup
 
